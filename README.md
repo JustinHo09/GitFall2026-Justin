@@ -1,5 +1,5 @@
-Justin Ho
-JustinHo09
+Name: Justin Ho
+Email: justin.ho
 # GitFall2024
 
 
