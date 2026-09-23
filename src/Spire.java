@@ -15,6 +15,7 @@ import org.openpdf.text.DocumentException;
 import org.openpdf.text.Paragraph;
 import org.openpdf.text.pdf.PdfWriter;
 import org.openpdf.text.Image;
+import org.openpdf.text.pdf.PdfPTable;
 
 // This is where I found the .jar file for JFreeChart:https://mvnrepository.com/artifact/org.jfree/jfreechart/1.5.6
 import org.jfree.chart.JFreeChart;
@@ -84,7 +85,9 @@ public class Spire {
             int total = 0;
 
             // Frequency of each valid cost for the histogram
-            int costFrequency [] = new int[7];
+            //int costFrequency [] = new int[7];
+            ArrayList <String> valid = new ArrayList<>();
+            ArrayList <Double> energy = new ArrayList<>();
 
             // The cost of a card after it is deciphered
             int cost;
@@ -100,38 +103,42 @@ public class Spire {
                 String line = fileScanner.nextLine();
 
                 // Only if the line contains a colon which indicates the row is a data row that is valid
-                if(line.contains(":")){
+                if(line.contains(":")) {
 
                     // Increment card count and if it is over 1000 return with the void file.
                     rowCount++;
-                    if(rowCount>1000){
+                    if (rowCount > 1000) {
                         voidFile(id);
                         return;
                     }
 
                     // Split the row into the card name and the cost which are both strings.
-                    String [] split = line.split(":");
+                    String[] split = line.split(":");
 
                     // See if both the card name and cost are valid values to either add to the total cost
                     // and frequency count or invalid to add to the invalid counter.
-                    if(validCost(split[1].strip()) && validCard(split[0].strip(),validCardNames)){
-                        cost = (int)split[1].strip().charAt(0) - 48;
-                        total+= cost;
-                        costFrequency[cost]++;
-                    }else{
-                        // If it is invalid it will append energy to the end and then if there
-                        // Are more than 10 invalid cards then it will return and print the void file.
-                        invalid.add(line + " energy");
-                        if(invalid.size()>10){
-                            voidFile(id);
-                            return;
+                    if (split.length == 2) {
+                        if (validCost(split[1].strip()) && validCard(split[0].strip(), validCardNames)) {
+                            cost = (int) split[1].strip().charAt(0) - 48;
+                            total += cost;
+                            //costFrequency[cost]++;
+                            valid.add(split[0].strip());
+                            energy.add((double) (cost));
+                        } else {
+                            // If it is invalid it will append energy to the end and then if there
+                            // Are more than 10 invalid cards then it will return and print the void file.
+                            invalid.add(line + " energy");
+                            if (invalid.size() > 10) {
+                                voidFile(id);
+                                return;
+                            }
                         }
                     }
                 }
             }
 
             //Write PDF REPORT
-            writePDF(id,total, costFrequency,invalid);
+            writePDF(id,total, valid, energy,invalid);
 
         }catch (FileNotFoundException e){
             System.out.println("File not found");
@@ -203,10 +210,11 @@ public class Spire {
      * invalid cards in the deck.
      * @param id The 9-digit integer id of the deck.
      * @param total The total cost of all the cards in the deck.
-     * @param frequency An integer array of the frequency of each valid cost in the deck.
+     * @param valid The array of all the valid card names in the deck.
+     * @param cost The array of all the energy cost of all the cards in the deck, in the same order as valid.
      * @param invalid An ArrayList of all invalid cards in the deck.
      */
-    private static void writePDF(int id, int total,  int[] frequency, ArrayList<String> invalid){
+    private static void writePDF(int id, int total,  ArrayList<String> valid, ArrayList<Double> cost, ArrayList<String> invalid){
 
         Document document = new Document();
         try {
@@ -222,19 +230,13 @@ public class Spire {
             // I used the JFreeChart Documentation and the official demo on github
             // to help me understand how to make the histogram.
             HistogramDataset frequencies = new HistogramDataset();
-            int count = 0;
-            for(int i=0;i<frequency.length;i++){
-                count+=frequency[i];
-            }
+            double [] data = new double[cost.size()];
 
-            // Get all the raw information back for the Histogram creation
-            int index = 0;
-            double data[]  = new double [count];
-            for(int i=0;i<frequency.length;i++){
-                for(int j=0; j<frequency[i];j++){
-                    data[index] = i;
-                    index++;
-                }
+            // Sort the name and energy for later
+            sort(valid,cost);
+
+            for (int i = 0; i < cost.size(); i++) {
+                data[i] = cost.get(i);
             }
 
             frequencies.addSeries("Data", data, 7, 0.0, 7.0);
@@ -242,9 +244,11 @@ public class Spire {
             JFreeChart histogram = ChartFactory.createHistogram("Card Cost Distribution",
                     "Energy", "Frequency",frequencies,PlotOrientation.VERTICAL,false,false,false);
             ChartUtils.saveChartAsPNG(new File("histogram_"+id+".png"), histogram, 320, 240);
-            // I used the official guide on github to help me understand how to do this.
+            // I used the official guide on Github to help me understand how to do this:
+            // https://github.com/jfree/jfree-demos/blob/master/src/main/java/org/jfree/chart/demo2/PieChartDemo1.java.
             Image histogramImage = Image.getInstance("histogram_"+id+".png");
             document.add(histogramImage);
+
             // List of invalid cards
             if(invalid.isEmpty()){
                 document.add(new Paragraph("No invalid cards"));
@@ -255,12 +259,107 @@ public class Spire {
                 }
             }
 
+            document.add(new Paragraph("\n"));
+            // Table of all cards in the deck in order from smallest to largest
+            // and the summary statistics
+
+            PdfPTable table = new PdfPTable(2);
+            for(int i = 0; i < valid.size(); i++){
+                table.addCell(valid.get(i));
+                table.addCell(cost.get(i) + " energy");
+            }
+            document.add(table);
+
+            document.add(new Paragraph("Statistics:"));
+            document.add(new Paragraph("Mean Energy: "+ total/cost.size()));
+            double median = median(cost);
+            document.add(new Paragraph("Median Energy: " + median));
+            String mode = mode(cost).toString();
+            document.add(new Paragraph("Mode Energy: " + mode));
+
             document.close();
             System.out.println("\nSpireDeck_"+id+".pdf was successfully created.");
 
         } catch ( IOException | DocumentException e){
             System.out.println("Error with Report creation.");
         }
+    }
+
+    /**
+     * This is an Insertion sort algorithm that will sort the name and energy in place
+     * together, but names and energy must be paired in their current order.
+     * @param name Names of valid cards.
+     * @param cost Energy cost of the cards.
+     */
+    private static void sort( ArrayList<String> name, ArrayList<Double> cost){
+        if(name.size() != cost.size()){
+            System.out.println("Error name and cost mismatch");
+            return;
+        }
+        int n = name.size();
+
+        for (int i = 1; i < n; i++) {
+            for(int j = i; j > 0; j--){
+                if(cost.get(j) < cost.get(j-1)){
+
+                    // Swap Costs positions
+                    Double dTemp = cost.get(j-1);
+                    cost.set(j-1, cost.get(j));
+                    cost.set(j, dTemp);
+
+                    // Swap Names too for it to be accurate
+                    String sTemp = name.get(j-1);
+                    name.set(j-1, name.get(j));
+                    name.set(j, sTemp);
+                } else {
+                    // Leave early for if it is not less than the previous thus being in the
+                    // right place for now.
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * This method finds the median of a sorted Double ArrayList.
+     * @param cost The sorted Double ArrayList to find the median for.
+     * @return The median of the input ArrayList.
+     */
+    private static double median(ArrayList<Double> cost){
+        double median;
+        if(cost.size()%2==0){
+            median = cost.get(cost.size()/2) -  cost.get((cost.size()/2 )-1);
+        }else{
+            median = cost.get(cost.size()/2);
+        }
+
+        return median;
+    }
+
+    /**
+     * This finds the mode(s) of an ArrayList of Doubles only if the input is sorted.
+     * @param cost The sorted Double ArrayList to find the mode(s) for.
+     * @return An ArrayList of the modes in the ArrayList.
+     */
+    private static ArrayList<Integer> mode(ArrayList<Double> cost){
+        int first;
+        int last;
+        int highest = -1;
+        ArrayList<Integer> mode = new ArrayList<>();
+        for(int i = 0; i < 7; i++){
+            first = cost.indexOf((double) i);
+            last = cost.lastIndexOf((double) i);
+            if(first != -1 && last != -1) {
+                if (last - first + 1 > highest) {
+                    mode.clear();
+                    highest = last - first + 1;
+                    mode.add(i);
+                } else if (last - first + 1 == highest) {
+                    mode.add(i);
+                }
+            }
+        }
+        return mode;
     }
 
 }
