@@ -1,0 +1,259 @@
+Problem 5:
+justinho@MacBook-Pro GitFall2026-Justin % git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+justinho@MacBook-Pro GitFall2026-Justin % git log   
+commit 5f75e751488fd0b16c81325c9ae814ff65f0c95b (HEAD -> main, origin/main, origin/HEAD)
+Merge: fca18d2 b3e573c
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:10:46 2024 -0500
+
+    Merge branch 'readme'
+    I do not like VI
+    that is what
+
+commit fca18d2606f45601cf99aec4f279339a0dee18d8
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:08:52 2024 -0500
+
+    BookShop class create
+
+commit b3e573c8b75940e9bbcda519b0bece046f4b60eb
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:06:47 2024 -0500
+
+    added another name
+
+commit ea123f795a7a0cfc8de45c824e9b7cf17985d355
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:06:30 2024 -0500
+
+    added another name
+
+commit 4cd474a9c054ca0c47dcf47ac7ab0a44b6c66757
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:05:55 2024 -0500
+
+    sllepy message
+
+commit 82280194a20dfdfea27311d89fdb20761655217f
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:03:00 2024 -0500
+
+    Updated readme file
+
+commit 5f75e751488fd0b16c81325c9ae814ff65f0c95b (HEAD -> main, origin/main, orig
+in/HEAD)
+Merge: fca18d2 b3e573c
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:10:46 2024 -0500
+
+    Merge branch 'readme'
+    I do not like VI
+    that is what
+
+commit fca18d2606f45601cf99aec4f279339a0dee18d8
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:08:52 2024 -0500
+
+    BookShop class create
+
+commit b3e573c8b75940e9bbcda519b0bece046f4b60eb
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:06:47 2024 -0500
+
+    added another name
+
+commit ea123f795a7a0cfc8de45c824e9b7cf17985d355
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:06:30 2024 -0500
+
+    added another name
+    
+commit 4cd474a9c054ca0c47dcf47ac7ab0a44b6c66757
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:05:55 2024 -0500
+
+    sllepy message
+
+commit 82280194a20dfdfea27311d89fdb20761655217f
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:03:00 2024 -0500
+
+    Updated readme file
+
+commit 985e63e6d4226c156c56c38d061e57e1672dd90b
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 09:59:08 2024 -0500
+
+    Added more names
+
+commit 21ea409f47aa292619b8dea918c0c3eb02f82ccc
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 09:56:24 2024 -0500
+
+	Added names LinkedList
+
+commit b02c65d884b0a0f344a482cbb0366139b7bcd969
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 09:49:33 2024 -0500
+
+    added empty Main.java
+
+commit bdd2fa9c9cb3d6e17a156106f0da1ac7fd9194ff
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 09:25:22 2024 -0500
+
+    starter files
+(END)
+
+justinho@MacBook-Pro GitFall2026-Justin % git shortlog
+Esteban Parra (10):
+      starter files
+      added empty Main.java
+      Added names LinkedList
+      Added more names
+      Updated readme file
+      sllepy message
+      added another name
+      added another name
+      BookShop class create
+      Merge branch 'readme' I do not like VI that is what
+
+justinho@MacBook-Pro GitFall2026-Justin % git log --graph          
+*   commit 5f75e751488fd0b16c81325c9ae814ff65f0c95b (HEAD -> main, origin/main, origin/HEAD)
+|\  Merge: fca18d2 b3e573c
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:10:46 2024 -0500
+| | 
+| |     Merge branch 'readme'
+| |     I do not like VI
+| |     that is what
+| | 
+| * commit b3e573c8b75940e9bbcda519b0bece046f4b60eb
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:06:47 2024 -0500
+| | 
+| |     added another name
+| | 
+| * commit ea123f795a7a0cfc8de45c824e9b7cf17985d355
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:06:30 2024 -0500
+| | 
+| |     added another name
+| | 
+| * commit 4cd474a9c054ca0c47dcf47ac7ab0a44b6c66757
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:05:55 2024 -0500
+| | 
+| |     sllepy message
+| | 
+* | commit fca18d2606f45601cf99aec4f279339a0dee18d8
+|/  Author: Esteban Parra <estebanpr014@gmail.com>
+|   Date:   Tue Sep 10 10:08:52 2024 -0500
+|   
+|       BookShop class create
+| 
+* commit 82280194a20dfdfea27311d89fdb20761655217f
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 10:03:00 2024 -0500
+| 
+|     Updated readme file
+| 
+* commit 985e63e6d4226c156c56c38d061e57e1672dd90b
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 09:59:08 2024 -0500
+| 
+|     Added more names
+| 
+* commit 21ea409f47aa292619b8dea918c0c3eb02f82ccc
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 09:56:24 2024 -0500
+| 
+|     Added names LinkedList
+| 
+* commit b02c65d884b0a0f344a482cbb0366139b7bcd969
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 09:49:33 2024 -0500
+| 
+|     added empty Main.java
+| 
+* commit bdd2fa9c9cb3d6e17a156106f0da1ac7fd9194ff
+  Author: Esteban Parra <estebanpr014@gmail.com>
+  Date:   Tue Sep 10 09:25:22 2024 -0500
+  
+      starter files
+(END)
+
+justinho@MacBook-Pro GitFall2026-Justin % git log --graph --oneline
+*   5f75e75 (HEAD -> main, origin/main, origin/HEAD) Merge branch 'readme' I do not like VI that is what
+|\  
+| * b3e573c added another name
+| * ea123f7 added another name
+| * 4cd474a sllepy message
+* | fca18d2 BookShop class create
+|/  
+* 8228019 Updated readme file
+* 985e63e Added more names
+* 21ea409 Added names LinkedList
+* b02c65d added empty Main.java
+* bdd2fa9 starter files
+
+Problem 6:
+justinho@MacBook-Pro GitFall2026-Justin % git remote               
+origin
+
+6) After running git remote I see origin, which indicates I am on the original main branch.
+
+Problem 22:
+
+justinho@MacBook-Pro GitFall2026-Justin % git branch              
+* feature1
+  main
+  
+22) What is different is that there is now a another item called feature1 and this one has an aesteriks next to it
+instead of main. I am on the feature1 branch.
+
+Problem 30:
+
+justinho@MacBook-Pro GitFall2026-Justin % ls
+book.txt	BookShop.java	Main.java	properties.txt	README.md
+
+30) yes, the inspiration.txt is not listed as a file though we created it.
+
+
+Problem 33:
+
+justinho@MacBook-Pro GitFall2026-Justin % gitk
+
+33) I see a pannel pop up and there are four subpanels. The top left one shows the graph of the branches and commits
+that ever made. The top right shows the author and email of who made that commit. The bottom left shows all of the
+commit information like the id, author, and commit message. The bottom left shows what files were added in that commit.
+ 
+Problem 36:
+
+a) 14 Commits have been done to the repository.
+
+b) The .gitignore file was last modified Sat Sep 19 13:46:49 2026 -0500, which is Saturday, September 19, 2026 at 1:45 PM.
+
+c) To get the list of files that were in a repository on specific date there are two commands that have to be used. The first command is git log -1 --before=<YEAR-MONTH-DAY> --format=%h <branch>. This is so that you can get the most recent commit from that date with -1 and --before to specify the cut off date. Both of these combined let you get the most recent commit from that day. The --format %h will only make it return the commit hash to be used for the second command and <branch? after specifies the branch to get it from and main is the one that should be done because it is the repository root and such the repository, but if it is instead another branch it will do the same but for that branch. Using that hash will be needed for the input of the second command which is git ls-tree -r --name-only <Commit_Hash>. This one will return a list of  all of the files in the project at that commit. The ls-tree -r will give the list formatting and make it recursive so it will go down other folder to get files that are inside those too. The --name-only makes sure that only the names of them are returned and the commit-hash will have the commit to check the files from. So these two commands together are used to list all of the files from the repository at a specific date.
+
+d) The file.java was modified once, cards.txt was modified once, spire.java was modified twice
+
+e)1 addition opperation was involved in the creation of the Remove.txt file.
+
+f) The difference between git log and git status is that git log shows the commit history of the  repository across all branches to your current head, while git status chows the current state of the working director showing which files are modified or untagged.
+
+g) The git shortlog command gives a summarized version of the git log results where each commit will be grouped by author and title only as well as each author's commit count. This will not include any of the commit hashes or message aside from the title.
+
+h) The command git log Main.java shows the list of commits in which the file Main.java was a part of the committed files.
+
+i) The command to list the commits where Main.java was part of the committed files, including the renames and the diffs of each commit is: git log --follow -p Main.java
+
+j) The command to use to see a list of commits whose message contains the word account is: git log --grep=account
+
+k) The command to use to see the commits made by a specific person is: git log --author="<name>". The name of the author is in quotes incase there is a space in the name which will make it a valid input.
+
+l) The command to use to see the commits made by Laura between 01/05/2014 and 01/14/2024 is: git log --author="Lauren" --after=2014-01-05 --before=2024-01-14

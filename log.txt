@@ -1,0 +1,528 @@
+Problem 5:
+justinho@MacBook-Pro GitFall2026-Justin % git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+justinho@MacBook-Pro GitFall2026-Justin % git log   
+commit 5f75e751488fd0b16c81325c9ae814ff65f0c95b (HEAD -> main, origin/main, origin/HEAD)
+Merge: fca18d2 b3e573c
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:10:46 2024 -0500
+
+    Merge branch 'readme'
+    I do not like VI
+    that is what
+
+commit fca18d2606f45601cf99aec4f279339a0dee18d8
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:08:52 2024 -0500
+
+    BookShop class create
+
+commit b3e573c8b75940e9bbcda519b0bece046f4b60eb
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:06:47 2024 -0500
+
+    added another name
+
+commit ea123f795a7a0cfc8de45c824e9b7cf17985d355
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:06:30 2024 -0500
+
+    added another name
+
+commit 4cd474a9c054ca0c47dcf47ac7ab0a44b6c66757
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:05:55 2024 -0500
+
+    sllepy message
+
+commit 82280194a20dfdfea27311d89fdb20761655217f
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:03:00 2024 -0500
+
+    Updated readme file
+
+commit 5f75e751488fd0b16c81325c9ae814ff65f0c95b (HEAD -> main, origin/main, orig
+in/HEAD)
+Merge: fca18d2 b3e573c
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:10:46 2024 -0500
+
+    Merge branch 'readme'
+    I do not like VI
+    that is what
+
+commit fca18d2606f45601cf99aec4f279339a0dee18d8
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:08:52 2024 -0500
+
+    BookShop class create
+
+commit b3e573c8b75940e9bbcda519b0bece046f4b60eb
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:06:47 2024 -0500
+
+    added another name
+
+commit ea123f795a7a0cfc8de45c824e9b7cf17985d355
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:06:30 2024 -0500
+
+    added another name
+    
+commit 4cd474a9c054ca0c47dcf47ac7ab0a44b6c66757
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:05:55 2024 -0500
+
+    sllepy message
+
+commit 82280194a20dfdfea27311d89fdb20761655217f
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:03:00 2024 -0500
+
+    Updated readme file
+
+commit 985e63e6d4226c156c56c38d061e57e1672dd90b
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 09:59:08 2024 -0500
+
+    Added more names
+
+commit 21ea409f47aa292619b8dea918c0c3eb02f82ccc
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 09:56:24 2024 -0500
+
+	Added names LinkedList
+
+commit b02c65d884b0a0f344a482cbb0366139b7bcd969
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 09:49:33 2024 -0500
+
+    added empty Main.java
+
+commit bdd2fa9c9cb3d6e17a156106f0da1ac7fd9194ff
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 09:25:22 2024 -0500
+
+    starter files
+(END)
+
+justinho@MacBook-Pro GitFall2026-Justin % git shortlog
+Esteban Parra (10):
+      starter files
+      added empty Main.java
+      Added names LinkedList
+      Added more names
+      Updated readme file
+      sllepy message
+      added another name
+      added another name
+      BookShop class create
+      Merge branch 'readme' I do not like VI that is what
+
+justinho@MacBook-Pro GitFall2026-Justin % git log --graph          
+*   commit 5f75e751488fd0b16c81325c9ae814ff65f0c95b (HEAD -> main, origin/main, origin/HEAD)
+|\  Merge: fca18d2 b3e573c
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:10:46 2024 -0500
+| | 
+| |     Merge branch 'readme'
+| |     I do not like VI
+| |     that is what
+| | 
+| * commit b3e573c8b75940e9bbcda519b0bece046f4b60eb
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:06:47 2024 -0500
+| | 
+| |     added another name
+| | 
+| * commit ea123f795a7a0cfc8de45c824e9b7cf17985d355
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:06:30 2024 -0500
+| | 
+| |     added another name
+| | 
+| * commit 4cd474a9c054ca0c47dcf47ac7ab0a44b6c66757
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:05:55 2024 -0500
+| | 
+| |     sllepy message
+| | 
+* | commit fca18d2606f45601cf99aec4f279339a0dee18d8
+|/  Author: Esteban Parra <estebanpr014@gmail.com>
+|   Date:   Tue Sep 10 10:08:52 2024 -0500
+|   
+|       BookShop class create
+| 
+* commit 82280194a20dfdfea27311d89fdb20761655217f
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 10:03:00 2024 -0500
+| 
+|     Updated readme file
+| 
+* commit 985e63e6d4226c156c56c38d061e57e1672dd90b
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 09:59:08 2024 -0500
+| 
+|     Added more names
+| 
+* commit 21ea409f47aa292619b8dea918c0c3eb02f82ccc
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 09:56:24 2024 -0500
+| 
+|     Added names LinkedList
+| 
+* commit b02c65d884b0a0f344a482cbb0366139b7bcd969
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 09:49:33 2024 -0500
+| 
+|     added empty Main.java
+| 
+* commit bdd2fa9c9cb3d6e17a156106f0da1ac7fd9194ff
+  Author: Esteban Parra <estebanpr014@gmail.com>
+  Date:   Tue Sep 10 09:25:22 2024 -0500
+  
+      starter files
+(END)
+
+justinho@MacBook-Pro GitFall2026-Justin % git log --graph --oneline
+*   5f75e75 (HEAD -> main, origin/main, origin/HEAD) Merge branch 'readme' I do not like VI that is what
+|\  
+| * b3e573c added another name
+| * ea123f7 added another name
+| * 4cd474a sllepy message
+* | fca18d2 BookShop class create
+|/  
+* 8228019 Updated readme file
+* 985e63e Added more names
+* 21ea409 Added names LinkedList
+* b02c65d added empty Main.java
+* bdd2fa9 starter files
+
+Problem 6:
+justinho@MacBook-Pro GitFall2026-Justin % git remote               
+origin
+
+
+justinho@MacBook-Pro GitFall2026-Justin % echo "properties.txt" > .gitignore 
+justinho@MacBook-Pro GitFall2026-Justin % echo "\tThe last book that I read was filled with photos. It revolved around people called sorcerers that did not wield magic but some power called cursed energy. These people have unqiue abilites from as a result of their cursed energy. The protagonist was a seemingly strange person who in an attept to save his classmates ate some sort of old corpse finger. The finger turned out to contain the soul of the on the most powerful ancient evil socerers. Just as that socerer was taking control of our protagonist someone else steps in to stop if but they were unsuccessful which led to another person stepping in. The other person was one of the strongest people in the series and was able to stop him and give the protagonist control of his body again" > book.txt
+justinho@MacBook-Pro GitFall2026-Justin % git status  
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.DS_Store
+	.gitignore
+	book.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+justinho@MacBook-Pro GitFall2026-Justin % echo "\njustinho@MacBook-Pro GitFall2026-Justin % git status  
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use 'git add <file>...' to include in what will be committed) 
+        .DS_Store
+        .gitignore
+        book.txt
+
+nothing added to commit but untracked files present (use 'git add' to track)" >> book.txt 
+
+justinho@MacBook-Pro GitFall2026-Justin % git rm REMOVE.txt    
+fatal: pathspec 'REMOVE.txt' did not match any files
+justinho@MacBook-Pro GitFall2026-Justin % nano README.md 
+
+justinho@MacBook-Pro GitFall2026-Justin % git diff
+diff --git a/README.md b/README.md
+index 462919d..5781014 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,5 @@
++Justin Ho
++JustinHo09
+ # GitFall2024
+ 
+ 
+@@ -6,7 +8,8 @@ This is the starter code for your Git Assignment.
+ If you do not see this. You have not pulled/forked the repository after classs correctly
+ 
+ 
+-Are you sleepy?
++Are you sleepy? - No
+ 
+ 
+-# GitFall2024
++# GitFall2026
++
+ git commit -m "Updated readme files          
+
+The read me has been updated to include by information so the project will now have my identity on it. 
+I attempted to removed REMOVE.txt but it did not exist."
+[main 320bb38] Updated readme files
+ Date: Sat Sep 19 13:27:17 2026 -0500
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+ create mode 100644 .gitignore
+ 
+ justinho@MacBook-Pro GitFall2026-Justin % git show  
+commit 2f9b045762a136dd9f11411cdeb1522c66bc9db0 (HEAD -> main)
+Author: Justin Ho <justin.ho@bruins.belmont.edu>
+Date:   Sat Sep 19 13:27:17 2026 -0500
+
+    Updated readme files          
+
+The read me has been updated to include by information so the project will now have my identity on it. 
+I attempted to removed REMOVE.txt but it did not exist.
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..159121d
+--- /dev/null
++++ b/.gitignore
+index 0000000..159121d
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1 @@
++properties.txt
+diff --git a/README.md b/README.md
+index 462919d..5781014 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,5 @@
++Justin Ho
++JustinHo09
+ # GitFall2024
+ 
+ 
+@@ -6,7 +8,8 @@ This is the starter code for your Git Assignment.
+ If you do not see this. You have not pulled/forked the repository after classs correctly
+ 
+ 
+-Are you sleepy?
++Are you sleepy? - No
+ 
+ 
+-# GitFall2024
++# GitFall2026
++
+
+ 
+ justinho@MacBook-Pro GitFall2026-Justin % git add book.txt
+justinho@MacBook-Pro GitFall2026-Justin % git status      
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   book.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.DS_Store
+
+justinho@MacBook-Pro GitFall2026-Justin % git commit -m "Updated book.txt 
+
+The information in book.txt has been updated per the assignment. 
+I added summary from the last book I read, and two git status results."
+[main 0380c23] Updated book.txt
+ 1 file changed, 25 insertions(+)
+ create mode 100644 book.txt
+
+justinho@MacBook-Pro GitFall2026-Justin % git push                        
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 10 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (7/7), 1.49 KiB | 1.49 MiB/s, done.
+Total 7 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To https://github.com/JustinHo09/GitFall2026-Justin.git
+   5f75e75..0380c23  main -> main
+justinho@MacBook-Pro GitFall2026-Justin % git branch               
+* main
+justinho@MacBook-Pro GitFall2026-Justin % git checkout -b feature1        
+Switched to a new branch 'feature1'
+justinho@MacBook-Pro GitFall2026-Justin % git branch              
+* feature1
+  main
+  
+justinho@MacBook-Pro GitFall2026-Justin % git checkout feature1   
+Already on 'feature1'
+justinho@MacBook-Pro GitFall2026-Justin % echo "" > inspiration.txt
+
+justinho@MacBook-Pro GitFall2026-Justin % git add inspiration.txt
+
+justinho@MacBook-Pro GitFall2026-Justin % git commit -m "Created inspiration.txt
+
+I created inspiration.txt which for now is a blank text file as per the assignment."
+[feature1 c872b01] Created inspiration.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 inspiration.txt
+ 
+justinho@MacBook-Pro GitFall2026-Justin % echo '"And Gabriel send it to the Budapest sky" \n"This is football heritage"\n"Throughout Heaven and Earth, I alone am the honored one"\n"Leave the football before the football leaves you"\n"The difference between a novice and a master is that a master has failed more times than a novice has tried"' >> inspiration.txt
+
+justinho@MacBook-Pro GitFall2026-Justin % git add inspiration.txt 
+justinho@MacBook-Pro GitFall2026-Justin % git commit -m "Added quotes to inspiration.txt
+
+I added five quotes to inspiration.txt."                                            
+[feature1 bb2cb33] Added quotes to inspiration.txt
+ 1 file changed, 5 insertions(+)
+justinho@MacBook-Pro GitFall2026-Justin % git diff main  
+diff --git a/inspiration.txt b/inspiration.txt
+new file mode 100644
+index 0000000..146d487
+--- /dev/null
++++ b/inspiration.txt
+@@ -0,0 +1,6 @@
++
++"And Gabriel send it to the Budapest sky" 
++"This is football heritage"
++"Throughout Heaven and Earth, I alone am the honored one"
++"Leave the football before the football leaves you"
++"The difference between a novice and a master is that a master has failed more times than a novice has tried"
+justinho@MacBook-Pro GitFall2026-Justin % git checkout main                             
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+justinho@MacBook-Pro GitFall2026-Justin % ls
+book.txt	BookShop.java	Main.java	properties.txt	README.md
+
+justinho@MacBook-Pro GitFall2026-Justin % git merge feature1
+Updating 0380c23..bb2cb33
+Fast-forward
+ inspiration.txt | 6 ++++++
+ 1 file changed, 6 insertions(+)
+ create mode 100644 inspiration.txt
+ 
+ justinho@MacBook-Pro GitFall2026-Justin % gitk
+
+ justinho@MacBook-Pro GitFall2026-Justin % echo > answers.txt   
+justinho@MacBook-Pro GitFall2026-Justin % git add answers.txt    
+justinho@MacBook-Pro GitFall2026-Justin % git status         
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   answers.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.DS_Store
+
+justinho@MacBook-Pro GitFall2026-Justin % echo "'\njustinho@MacBook-Pro GitFall2026-Justin % git status                         
+On branch main                                             
+Your branch is ahead of 'origin/main' by 2 commits.  
+  (use "'git push'" to publish your local commits)                     
+
+Changes to be committed:
+  (use "'git restore --staged <file>...'" to unstage)
+        new file:   answers.txt
+
+Untracked files:
+  (use "'git add <file>...'" to include in what will be committed)
+        .DS_Store'" >> book.txt
+
+justinho@MacBook-Pro GitFall2026-Justin % git log
+
+justinho@MacBook-Pro GitFall2026-Justin % git log -1 --format="%cd" .gitignore
+Sat Sep 19 13:46:49 2026 -0500
+
+
+
+I did most all of this before the updates and fixes on Tue, 22 so
+this is my fixes for those that were not shown above:
+
+Problem 11:
+justinho@MacBook-Pro GitFall2026-Justin % git rm Remove.txt
+rm 'Remove.txt'
+
+Problem 12:
+justinho@MacBook-Pro GitFall2026-Justin % nano README.md
+
+Problem 13:
+justinho@MacBook-Pro GitFall2026-Justin % git diff                               
+diff --git a/README.md b/README.md
+index 5781014..61b9026 100644
+--- a/README.md
++++ b/README.md
+@@ -1,5 +1,5 @@
+-Justin Ho
+-JustinHo09
++Name: Justin Ho
++Email: justin.ho
+ # GitFall2024
+ 
+ 
+Problem 14:
+justinho@MacBook-Pro GitFall2026-Justin % git add README.md                      
+justinho@MacBook-Pro GitFall2026-Justin % git commit -m "Removed Remove.txt Updated README.md
+
+I removed Remove.txt now that there is a Remove.txt file.
+I updated README.md to now have name and email then also have my Belmont email(with out everything including and after @) instead of my Github username."
+[main c567845] Removed Remove.txt Updated README.md
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+ delete mode 100644 Remove.txt
+
+Problem 15:
+justinho@MacBook-Pro GitFall2026-Justin % git show                                           
+commit c567845e6328fdcab5982a0dd5fa4c31665e4be6 (HEAD -> main)
+Author: Justin Ho <justin.ho@bruins.belmont.edu>
+Date:   Tue Sep 22 21:46:15 2026 -0500
+
+    Removed Remove.txt Updated README.md
+    
+    I removed Remove.txt now that there is a Remove.txt file.
+    I updated README.md to now have name and email then also have my Belmont email(with out everything including and after @) instead of my Github username.
+
+diff --git a/README.md b/README.md
+index 5781014..61b9026 100644
+--- a/README.md
++++ b/README.md
+@@ -1,5 +1,5 @@
+-Justin Ho
+-JustinHo09
++Name: Justin Ho
++Email: justin.ho
+ # GitFall2024
+ 
+ 
+diff --git a/Remove.txt b/Remove.txt
+deleted file mode 100644
+index 413bf7d..0000000
+--- a/Remove.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-Software development is the strategic process of converting caffeine into scalable abstractions while aligning the codebase’s synergistic algorithms with an agile cloud-native ecosystem. By refactoring the blockchain through recursive stand-up meetings, developers can optimize the user journey, disrupt technical debt, and deploy maximum innovation directly into production—usually on a Friday afternoon.
+\ No newline at end of file
+(END)
+
+Problem 34:
+justinho@MacBook-Pro GitFall2026-Justin % echo "Problem 5:"> answers.txt
+
+Problem 36d:
+justinho@MacBook-Pro GitFall2026-Justin % git log --name-only --oneline -- src        
+aa85f85 (HEAD) Pulled Main changes
+6aa1abe Files added
+src/file.java
+43c558d Finished writePDF.
+src/Spire.java
+e8a0094 Fixed isValid and finished voidFile.
+src/Spire.java
+src/cards.txt
+
+Problem 36e:
+justinho@MacBook-Pro GitFall2026-Justin % git log --numstat -- Remove.txt 
+commit 6aa1abee20eed47f2b9cc1f5aa21c19d72ab80ee
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 22 08:50:34 2026 -0500
+
+    Files added
+    
+    Added files missing
+
+1       0       Remove.txt
