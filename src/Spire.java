@@ -36,6 +36,8 @@ import org.jfree.chart.plot.PlotOrientation;
  *  deck cost, a histogram of the deck costs, table of all valid cards sorted by energy lowest
  *  to highest, and some statistics about the energy.
  *
+ *  The third extra credit is the table and stats in the writePDF.
+ *
  */
 public class Spire {
 
@@ -290,7 +292,7 @@ public class Spire {
 
             document.add(new Paragraph("\n"));
 
-            // *** THIS IS MY EXTRA CREDIT NUMBER 3 ***
+            // *** THIS IS MY EXTRA CREDIT NUMBER 3 : The table and stats***
             // Table of all cards in the deck in order from smallest to largest
             // and the summary statistics
             PdfPTable table = new PdfPTable(2);
