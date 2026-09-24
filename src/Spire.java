@@ -24,6 +24,19 @@ import org.jfree.chart.ChartUtils;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.chart.plot.PlotOrientation;
 
+/**
+ *  @author Justin Ho
+ *
+ *  @since 09-18-2026
+ *
+ * @version 1.10
+ *
+ *  This method takes in a txt file that is a deck for Slay the Spire and
+ *  generates a PDF report using it that details the random deck id, invalid cards, total
+ *  deck cost, a histogram of the deck costs, table of all valid cards sorted by energy lowest
+ *  to highest, and some statistics about the energy.
+ *
+ */
 public class Spire {
 
     /**
@@ -33,7 +46,7 @@ public class Spire {
      */
     public static void main(String[] args) {
         // Takes in User Input
-        System.out.println("Please enter in the file name or path for the deck to use");
+        System.out.println("Please enter in the deck's .txt file name or path for the program to use");
         Scanner scanner = new Scanner(System.in);
         String fileName = scanner.nextLine();
 
@@ -50,9 +63,11 @@ public class Spire {
         // Checks to see if the deck is valid or not to see if it should read the file and continue or not.
         if(!isValid(file,id)){
             System.out.println("Invalid File");
-            return;
         }else{
             readFile(file,id);
+            if(new File("SpireDeck_"+id+".pdf").exists()) {
+                System.out.println("\nSpireDeck_" + id + ".pdf was successfully created.");
+            }
         }
     }
 
@@ -60,7 +75,7 @@ public class Spire {
      *
      * @param file The deck to check if it is a valid file or not.
      * @param id The unique randomly generated 9-digit id of the deck.
-     * @return True if the file does not exist and False if the file does exist.
+     * @return True if the file does exist and False if the file does not exist.
      */
     private static boolean isValid(File file, int id){
         return file.exists();
@@ -103,6 +118,7 @@ public class Spire {
                 String line = fileScanner.nextLine();
 
                 // Only if the line contains a colon which indicates the row is a data row that is valid
+                // Blank lines do not count as cards thus they do not count as invalid for me either
                 if(line.contains(":")) {
 
                     // Increment card count and if it is over 1000 return with the void file.
@@ -133,6 +149,14 @@ public class Spire {
                                 return;
                             }
                         }
+                    }else{
+                        // If it is invalid it will append energy to the end and then if there
+                        // Are more than 10 invalid cards then it will return and print the void file.
+                        invalid.add(line + " energy");
+                        if (invalid.size() > 10) {
+                            voidFile(id);
+                            return;
+                        }
                     }
                 }
             }
@@ -151,7 +175,7 @@ public class Spire {
      * @return True if the cost is valid and False if the cost is invalid.
      */
     private static boolean validCost(String cost){
-        // Found .matches from JavaDoc on String class
+        // Found .matches from Javadoc on String class
         return cost.matches("[0-6]");
     }
 
@@ -171,7 +195,8 @@ public class Spire {
      * all the valid card names from Slay the src.Spire where each row is one card name, and
      * puts them in an ArrayList.
      * @return ArrayList of with all the card names inside of it.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException The file card.txt where the real Slay the Spire card name could not
+     * be found it is either missing or the wrong path is below.
      */
     private static ArrayList<String> validNames() throws FileNotFoundException {
         Scanner scanner = new Scanner(new File("src/cards.txt"));
@@ -190,7 +215,7 @@ public class Spire {
      * @param id The 9-digit id of the deck.
      */
     private static void voidFile(int id) {
-        //Make the void pdf
+        //Make the void PDF
         // I used the Javadoc for OpenPDF as well as the Tutorial to help me understand
         // how to use this library:
         // https://javadoc.io/doc/com.github.librepdf/openpdf/latest/com.github.librepdf.openpdf/org/openpdf/text/pdf/PdfDocument.html
@@ -227,7 +252,7 @@ public class Spire {
             document.add(new Paragraph("Total cost: "+ total + " energy"));
 
             // Histogram of all the cards in the deck
-            // I used the JFreeChart Documentation and the official demo on github
+            // I used the JFreeChart Documentation and the official demo on GitHub
             // to help me understand how to make the histogram.
             HistogramDataset frequencies = new HistogramDataset();
             double [] data = new double[cost.size()];
@@ -239,12 +264,16 @@ public class Spire {
                 data[i] = cost.get(i);
             }
 
-            frequencies.addSeries("Data", data, 7, 0.0, 7.0);
+            if(!cost.isEmpty()) {
+                frequencies.addSeries("Data", data, 7, -0.5, 6.5);
+            }
 
             JFreeChart histogram = ChartFactory.createHistogram("Card Cost Distribution",
                     "Energy", "Frequency",frequencies,PlotOrientation.VERTICAL,false,false,false);
+
             ChartUtils.saveChartAsPNG(new File("histogram_"+id+".png"), histogram, 320, 240);
-            // I used the official guide on Github to help me understand how to do this:
+
+            // I used the official guide on GitHub to help me understand how to do this:
             // https://github.com/jfree/jfree-demos/blob/master/src/main/java/org/jfree/chart/demo2/PieChartDemo1.java.
             Image histogramImage = Image.getInstance("histogram_"+id+".png");
             document.add(histogramImage);
@@ -260,25 +289,33 @@ public class Spire {
             }
 
             document.add(new Paragraph("\n"));
+
+            // *** THIS IS MY EXTRA CREDIT NUMBER 3 ***
             // Table of all cards in the deck in order from smallest to largest
             // and the summary statistics
-
             PdfPTable table = new PdfPTable(2);
             for(int i = 0; i < valid.size(); i++){
                 table.addCell(valid.get(i));
-                table.addCell(cost.get(i) + " energy");
+                table.addCell((int)((double)cost.get(i)) + " energy");
             }
             document.add(table);
 
             document.add(new Paragraph("Statistics:"));
-            document.add(new Paragraph("Mean Energy: "+ total/cost.size()));
-            double median = median(cost);
-            document.add(new Paragraph("Median Energy: " + median));
-            String mode = mode(cost).toString();
-            document.add(new Paragraph("Mode Energy: " + mode));
+            double mean = 0.0;
+            if(!cost.isEmpty()) {
+                mean = total / (double)cost.size();
+                document.add(new Paragraph("Mean Energy: "+ mean));
+                double median = median(cost);
+                document.add(new Paragraph("Median Energy: " + median));
+                String mode = mode(cost).toString();
+                document.add(new Paragraph("Mode Energy(ies): " + mode));
+            }else{
+                document.add(new Paragraph("Mean Energy: N/A"));
+                document.add(new Paragraph("Median Energy: N/A"));
+                document.add(new Paragraph("Mode Energy(ies): N/A"));
+            }
 
             document.close();
-            System.out.println("\nSpireDeck_"+id+".pdf was successfully created.");
 
         } catch ( IOException | DocumentException e){
             System.out.println("Error with Report creation.");
@@ -328,7 +365,7 @@ public class Spire {
     private static double median(ArrayList<Double> cost){
         double median;
         if(cost.size()%2==0){
-            median = cost.get(cost.size()/2) -  cost.get((cost.size()/2 )-1);
+            median = (cost.get(cost.size()/2) + cost.get((cost.size()/2 )-1))/2.0;
         }else{
             median = cost.get(cost.size()/2);
         }
