@@ -60,12 +60,19 @@ public class Spire {
         Random gen = new Random();
         // having it be at minimum the smallest 9-digit number and having it bound to the
         // highest 9-digit number ensures that it will be 9-digits long.
+        // This will alwasy generate a random numebr which means if the same file
+        // is used as input it will always generate another random number
+        // This is an intentional design choice since the deck may have
+        // had then and now and the pdf may not update the same one properly.
         int id = gen.nextInt(0,900000000) + 100000000;
 
         // Checks to see if the deck is valid or not to see if it should read the file and continue or not.
-        if(!isValid(file,id)){
+        if(!isValid(file)){
             System.out.println("Invalid File");
         }else{
+            // If valid call readfile then checks if the PDF file exists before saying
+            // the print was successful, tho there will be a delay from the print and the
+            // file appearing.
             readFile(file,id);
             if(new File("SpireDeck_"+id+".pdf").exists()) {
                 System.out.println("\nSpireDeck_" + id + ".pdf was successfully created.");
@@ -74,12 +81,12 @@ public class Spire {
     }
 
     /**
-     *
+     * This checks to see if the inputed file is a valid file being that is even exists.
      * @param file The deck to check if it is a valid file or not.
-     * @param id The unique randomly generated 9-digit id of the deck.
      * @return True if the file does exist and False if the file does not exist.
      */
-    private static boolean isValid(File file, int id){
+    private static boolean isValid(File file){
+        // Check if the file even exists.
         return file.exists();
     }
 
@@ -101,8 +108,6 @@ public class Spire {
             // Total cost of the deck
             int total = 0;
 
-            // Frequency of each valid cost for the histogram
-            //int costFrequency [] = new int[7];
             ArrayList <String> valid = new ArrayList<>();
             ArrayList <Double> energy = new ArrayList<>();
 
@@ -121,6 +126,7 @@ public class Spire {
 
                 // Only if the line contains a colon which indicates the row is a data row that is valid
                 // Blank lines do not count as cards thus they do not count as invalid for me either
+                // because it makes no sense to have an empty line in the report for invalid.
                 if(line.contains(":")) {
 
                     // Increment card count and if it is over 1000 return with the void file.
@@ -130,16 +136,16 @@ public class Spire {
                         return;
                     }
 
-                    // Split the row into the card name and the cost which are both strings.
+                    // Split the row into the card name and the cost which are both strings
+                    // since those two are divided by a colon.
                     String[] split = line.split(":");
 
                     // See if both the card name and cost are valid values to either add to the total cost
-                    // and frequency count or invalid to add to the invalid counter.
+                    // and card name and cost to the appropriate arrays or invalid to add to the invalid counter.
                     if (split.length == 2) {
                         if (validCost(split[1].strip()) && validCard(split[0].strip(), validCardNames)) {
                             cost = (int) split[1].strip().charAt(0) - 48;
                             total += cost;
-                            //costFrequency[cost]++;
                             valid.add(split[0].strip());
                             energy.add((double) (cost));
                         } else {
@@ -167,6 +173,8 @@ public class Spire {
             writePDF(id,total, valid, energy,invalid);
 
         }catch (FileNotFoundException e){
+            // If the file is not found print so just in case
+            // this is extra insurance.
             System.out.println("File not found");
         }
     }
@@ -189,6 +197,8 @@ public class Spire {
      * @return True if the card name is valid and False if the card name is invalid.
      */
     private static boolean validCard(String cardName, ArrayList<String> validCardNames){
+        // if the name is not just an empy string and if the name is a real card name
+        // then it returns true.
         return !cardName.isEmpty() && validCardNames.contains(cardName.toLowerCase());
     }
 
@@ -201,15 +211,16 @@ public class Spire {
      * be found it is either missing or the wrong path is below.
      */
     private static ArrayList<String> validNames() throws FileNotFoundException {
+        // Find cards.txt which is where the file of real names is.
         Scanner scanner = new Scanner(new File("src/cards.txt"));
 
         ArrayList<String> validNames = new ArrayList<>();
 
+        // Add all the names to the valid name arrau
         while (scanner.hasNextLine()) {
             validNames.add(scanner.nextLine().toLowerCase().strip());
         }
         return validNames;
-
     }
 
     /**
@@ -223,11 +234,15 @@ public class Spire {
         // https://javadoc.io/doc/com.github.librepdf/openpdf/latest/com.github.librepdf.openpdf/org/openpdf/text/pdf/PdfDocument.html
         Document document = new Document();
         try {
+            // Creates a PDF and opens it so things can be written.
             PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream("SpireDeck_" + id + "(VOID).pdf"));
             document.open();
+            // Add this line it/
             document.add(new Paragraph("VOID"));
             document.close();
         }catch (IOException | DocumentException e){
+            // If there is any error with the file or PDF writing
+            // then print saying there was an issue here.
             System.out.println("Error with Void Report creation.");
         }
     }
@@ -243,8 +258,10 @@ public class Spire {
      */
     private static void writePDF(int id, int total,  ArrayList<String> valid, ArrayList<Double> cost, ArrayList<String> invalid){
 
+        // Create a new document
         Document document = new Document();
         try {
+            // Create the PDF according to the name and open it so it can be written in
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("SpireDeck_" + id + ".pdf"));
             document.open();
             // Write Deck id
@@ -262,14 +279,20 @@ public class Spire {
             // Sort the name and energy for later
             sort(valid,cost);
 
+            // Add all the costs into data so it can be used as histogram input
             for (int i = 0; i < cost.size(); i++) {
                 data[i] = cost.get(i);
             }
 
+            // Checks if empty in case there were 0 cards.
             if(!cost.isEmpty()) {
+                // Add data as teh input for the histogram and make sure there are 7 bars
+                // and it is -.5 to 6.5 because there bars do clip out a bit.
                 frequencies.addSeries("Data", data, 7, -0.5, 6.5);
             }
 
+            // Create the histogram ensuring it is vertical
+            // and that unnecessary details like legend are there and then save is as a PGN
             JFreeChart histogram = ChartFactory.createHistogram("Card Cost Distribution",
                     "Energy", "Frequency",frequencies,PlotOrientation.VERTICAL,false,false,false);
 
@@ -277,13 +300,16 @@ public class Spire {
 
             // I used the official guide on GitHub to help me understand how to do this:
             // https://github.com/jfree/jfree-demos/blob/master/src/main/java/org/jfree/chart/demo2/PieChartDemo1.java.
+            // This makes the image and Image object so it can be added to the PDF.
             Image histogramImage = Image.getInstance("histogram_"+id+".png");
             document.add(histogramImage);
 
             // List of invalid cards
+            // Checks if there are any to begin with and write accordingly
             if(invalid.isEmpty()){
                 document.add(new Paragraph("No invalid cards"));
             } else {
+                // Write all the invalid cards
                 document.add(new Paragraph("Invalid Cards:"));
                 for(String s: invalid){
                     document.add(new Paragraph(s));
@@ -295,16 +321,24 @@ public class Spire {
             // *** THIS IS MY EXTRA CREDIT NUMBER 3 : The table and stats***
             // Table of all cards in the deck in order from smallest to largest
             // and the summary statistics
+
+            // Creates a new table with 2 columns one for the Name other for cost.
             PdfPTable table = new PdfPTable(2);
             for(int i = 0; i < valid.size(); i++){
+                // Writes name then cost and it writes left to right top down
+                // and so it has to be done one pair at a time.
                 table.addCell(valid.get(i));
                 table.addCell((int)((double)cost.get(i)) + " energy");
             }
+            // add the completed table
             document.add(table);
 
+            // Write some statistics like mean median and mode but
+            // only if there are cards otherwise it will be N/A.
             document.add(new Paragraph("Statistics:"));
             double mean = 0.0;
             if(!cost.isEmpty()) {
+                // Call some of the appropriate method or do the calculations for them.
                 mean = total / (double)cost.size();
                 document.add(new Paragraph("Mean Energy: "+ mean));
                 double median = median(cost);
@@ -320,6 +354,8 @@ public class Spire {
             document.close();
 
         } catch ( IOException | DocumentException e){
+            // Catch any arror and print saying there was one so that
+            // it it known that this is where the error was.
             System.out.println("Error with Report creation.");
         }
     }
@@ -331,13 +367,16 @@ public class Spire {
      * @param cost Energy cost of the cards.
      */
     private static void sort( ArrayList<String> name, ArrayList<Double> cost){
+        // Name and Cost must be the same size becuase their pairs if not something is wrong.
         if(name.size() != cost.size()){
             System.out.println("Error name and cost mismatch");
             return;
         }
         int n = name.size();
 
+        // Sorts based off insertion sort starts from one form the start until the end
         for (int i = 1; i < n; i++) {
+            // Go backwards to swap so that everything will be moved down as needed.
             for(int j = i; j > 0; j--){
                 if(cost.get(j) < cost.get(j-1)){
 
@@ -366,9 +405,12 @@ public class Spire {
      */
     private static double median(ArrayList<Double> cost){
         double median;
+        // Check to see if it is even or odd
         if(cost.size()%2==0){
+            // Even so the median is the average of the two in the middle
             median = (cost.get(cost.size()/2) + cost.get((cost.size()/2 )-1))/2.0;
         }else{
+            // Odd so the median is the middle
             median = cost.get(cost.size()/2);
         }
 
@@ -381,24 +423,36 @@ public class Spire {
      * @return An ArrayList of the modes in the ArrayList.
      */
     private static ArrayList<Integer> mode(ArrayList<Double> cost){
+        // Tracks the fist and last occurence of a specific energy.
         int first;
         int last;
+        // Highest count
         int highest = -1;
+        //Array of the mode(s) if multiple
         ArrayList<Integer> mode = new ArrayList<>();
+
+        // Checks for each energy cost
         for(int i = 0; i < 7; i++){
+            // Check the first and last occurnce of each energy as a double since that
+            // is what is is stored as.
             first = cost.indexOf((double) i);
             last = cost.lastIndexOf((double) i);
+            // If the first and last do exist continue
             if(first != -1 && last != -1) {
+                // If this cost has a higher frequency
+                // then clear the array and have this be the new mode.
+                // last-first +1 because indexes start at 0.
                 if (last - first + 1 > highest) {
                     mode.clear();
                     highest = last - first + 1;
                     mode.add(i);
                 } else if (last - first + 1 == highest) {
+                   // If this frequency si the same as the highest then
+                    // it is also a mode so add it to the array of modes.
                     mode.add(i);
                 }
             }
         }
         return mode;
     }
-
 }
